@@ -41,27 +41,15 @@ public class MainViewController : UIViewController
         stackView.AddArrangedSubview(createTaskButton);
 
         // Create .NET MAUI view
-        var mauiApp = CreateMauiApp();
-        var mauiView = CreateMauiView(mauiApp);
+        var mauiApp = AppDelegate.MauiApp.Value;
+        var mauiView = CreateMauiView();
         var nativeView = CreateNativeView(mauiApp, mauiView);
         stackView.AddArrangedSubview(nativeView);
 
         AddNavBarButtons();
     }
 
-    private MauiApp CreateMauiApp()
-    {
-        var mauiApp = MauiProgram.CreateMauiApp(builder =>
-        {
-            builder.UseMauiEmbedding(UIApplication.SharedApplication.Delegate);
-
-            //builder.Services.AddSingleton(typeof(UIWindow), (services) => Window);
-        });
-
-        return mauiApp;
-    }
-
-    private VisualElement CreateMauiView(MauiApp mauiApp)
+    private VisualElement CreateMauiView()
     {
         var view = new MyMauiContent();
         return view;
@@ -70,7 +58,7 @@ public class MainViewController : UIViewController
     private UIView CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
     {
         var mauiWindow = new Window();
-        //mauiApp.Services.GetRequiredService<IApplication>()
+        //var app = mauiApp.Services.GetRequiredService<IApplication>();
         mauiWindow.AddLogicalChild(mauiView);
 
         var window =

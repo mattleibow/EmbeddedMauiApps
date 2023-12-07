@@ -13,4 +13,14 @@ public class AppDelegate : UIApplicationDelegate
         Enumerable.FirstOrDefault<NSUserActivity>(options.UserActivities)?.ActivityType == "NewTaskWindow"
             ? new UISceneConfiguration("New Task Configuration", UIWindowSceneSessionRole.Application)
             : new UISceneConfiguration("Default Configuration", UIWindowSceneSessionRole.Application);
+
+    public static readonly Lazy<MauiApp> MauiApp = new(() =>
+    {
+        var mauiApp = MauiProgram.CreateMauiApp(builder =>
+        {
+            builder.UseMauiEmbedding(UIApplication.SharedApplication.Delegate);
+        });
+
+        return mauiApp;
+    });
 }
