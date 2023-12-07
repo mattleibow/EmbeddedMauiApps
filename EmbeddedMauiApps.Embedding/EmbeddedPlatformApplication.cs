@@ -13,7 +13,7 @@ internal class EmbeddedPlatformApplication : IPlatformApplication
     private readonly MauiContext rootContext;
     private readonly IMauiContext applicationContext;
 
-    private EmbeddedPlatformApplication(IServiceProvider services)
+    public EmbeddedPlatformApplication(IServiceProvider services)
     {
         IPlatformApplication.Current = this;
 
@@ -34,9 +34,6 @@ internal class EmbeddedPlatformApplication : IPlatformApplication
     public IServiceProvider Services { get; }
 
     public IApplication Application { get; }
-
-    public static IPlatformApplication Create(IServiceProvider services) =>
-        new EmbeddedPlatformApplication(services);
 
     private static IMauiContext MakeApplicationScope(IMauiContext rootContext)
     {

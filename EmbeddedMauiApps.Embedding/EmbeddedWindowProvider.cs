@@ -1,0 +1,27 @@
+﻿#if ANDROID
+using PlatformWindow = Android.App.Activity;
+using PlatformApplication = Android.App.Application;
+#elif IOS || MACCATALYST
+using PlatformWindow = UIKit.UIWindow;
+#elif WINDOWS
+#endif
+
+namespace Microsoft.Maui.Controls;
+
+public class EmbeddedWindowProvider
+{
+    WeakReference<PlatformWindow>? platformWindow;
+    WeakReference<Window>? window;
+
+    public void SetWindow(PlatformWindow platformWindow, Window window)
+    {
+        this.platformWindow = new WeakReference<PlatformWindow>(platformWindow);
+        this.window = new WeakReference<Window>(window);
+    }
+
+    public PlatformWindow? PlatformWindow => Get(platformWindow);
+    public Window? Window => Get(window);
+
+    private static T? Get<T>(WeakReference<T>? weak) where T : class =>
+        weak is not null && weak.TryGetTarget(out var target) ? target : null;
+}

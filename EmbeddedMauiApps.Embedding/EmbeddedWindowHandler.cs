@@ -29,15 +29,7 @@ internal class EmbeddedWindowHandler : ElementHandler<IWindow, PlatformWindow>, 
     {
     }
 
-    protected override PlatformWindow CreatePlatformElement()
-    {
-#if ANDROID
-        var window = Microsoft.Maui.ApplicationModel.Platform.CurrentActivity!;
-#elif IOS || MACCATALYST
-        var window = Microsoft.Maui.ApplicationModel.Platform.GetCurrentUIViewController().View.Window;
-#elif WINDOWS
-// TODO
-#endif
-        return window;
-    }
+    protected override PlatformWindow CreatePlatformElement() =>
+        MauiContext!.Services.GetRequiredService<PlatformWindow>() ??
+        throw new InvalidOperationException("EmbeddedWindowHandler could not locate a platform window.");
 }

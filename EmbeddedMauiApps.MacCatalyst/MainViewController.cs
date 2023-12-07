@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Platform;
-using UIKit;
 
 namespace EmbeddedMauiApps.MacCatalyst;
 
@@ -70,13 +69,20 @@ public class MainViewController : UIViewController
 
     private UIView CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
     {
-        var mauiContext = new MauiContext(mauiApp.Services);
+        var mauiWindow = new Window();
+        //mauiApp.Services.GetRequiredService<IApplication>()
+        mauiWindow.AddLogicalChild(mauiView);
 
-        //var window = new Window();
-        //window.ToHandler(mauiContext);
-        //window.AddLogicalChild(mauiView);
+        var window =
+            View?.Window ??
+            ParentViewController?.View?.Window ??
+            mauiApp.Services.GetRequiredService<IUIApplicationDelegate>().GetWindow();
 
-        return mauiView.ToPlatform(mauiContext);
+        var mauiContext = mauiApp.CreateWindowScope(window, mauiWindow);
+
+        var platformView = mauiView.ToPlatform(mauiContext);
+
+        return platformView;
     }
 
     private void AddNavBarButtons()
