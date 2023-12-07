@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps.MacCatalyst", "EmbeddedMauiApps.MacCatalyst\EmbeddedMauiApps.MacCatalyst.csproj", "{9EE1B8AA-2789-4DC4-8C59-8902568DBA01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps", "EmbeddedMauiApps\EmbeddedMauiApps.csproj", "{1EFEE596-34AE-472B-B096-0578C6F3587B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps.Embedding", "EmbeddedMauiApps.Embedding\EmbeddedMauiApps.Embedding.csproj", "{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EE1B8AA-2789-4DC4-8C59-8902568DBA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE1B8AA-2789-4DC4-8C59-8902568DBA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE1B8AA-2789-4DC4-8C59-8902568DBA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE1B8AA-2789-4DC4-8C59-8902568DBA01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EFEE596-34AE-472B-B096-0578C6F3587B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EFEE596-34AE-472B-B096-0578C6F3587B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EFEE596-34AE-472B-B096-0578C6F3587B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EFEE596-34AE-472B-B096-0578C6F3587B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
