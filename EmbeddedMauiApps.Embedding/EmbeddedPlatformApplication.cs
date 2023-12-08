@@ -3,6 +3,7 @@ using PlatformApplication = Android.App.Application;
 #elif IOS || MACCATALYST
 using PlatformApplication = UIKit.IUIApplicationDelegate;
 #elif WINDOWS
+using PlatformApplication = Microsoft.UI.Xaml.Application;
 #endif
 
 namespace Microsoft.Maui.Controls;

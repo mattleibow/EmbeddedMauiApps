@@ -3,6 +3,7 @@ using PlatformWindow = Android.App.Activity;
 #elif IOS || MACCATALYST
 using PlatformWindow = UIKit.UIWindow;
 #elif WINDOWS
+using PlatformWindow = Microsoft.UI.Xaml.Window;
 #endif
 
 namespace Microsoft.Maui.Controls;
@@ -19,6 +20,7 @@ public class EmbeddedWindowProvider
     }
 
     public PlatformWindow? PlatformWindow => Get(platformWindow);
+
     public Window? Window => Get(window);
 
     private static T? Get<T>(WeakReference<T>? weak) where T : class =>

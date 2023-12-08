@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Platform;
 
 #if ANDROID
@@ -10,6 +8,8 @@ using PlatformApplication = Android.App.Application;
 using PlatformWindow = UIKit.UIWindow;
 using PlatformApplication = UIKit.IUIApplicationDelegate;
 #elif WINDOWS
+using PlatformWindow = Microsoft.UI.Xaml.Window;
+using PlatformApplication = Microsoft.UI.Xaml.Application;
 #endif
 
 namespace Microsoft.Maui.Controls;
@@ -24,18 +24,14 @@ public static class EmbeddedExtensions
 
         builder.Services.AddScoped<EmbeddedWindowProvider>();
 
-#if ANDROID || IOS || MACCATALYST
         builder.Services.AddScoped<PlatformWindow>(svc =>
             svc.GetRequiredService<EmbeddedWindowProvider>().PlatformWindow ?? throw new InvalidOperationException("EmbeddedWindowProvider did not have a platform window."));
-#endif
 
         builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IMauiInitializeService, EmbeddedInitializeService>());
 
         builder.ConfigureMauiHandlers(handlers =>
         {
-#if ANDROID || IOS || MACCATALYST
             handlers.AddHandler(typeof(Window), typeof(EmbeddedWindowHandler));
-#endif
         });
 
         return builder;

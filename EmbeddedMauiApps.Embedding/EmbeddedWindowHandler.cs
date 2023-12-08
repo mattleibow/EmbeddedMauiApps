@@ -5,6 +5,7 @@ using PlatformWindow = Android.App.Activity;
 #elif IOS || MACCATALYST
 using PlatformWindow = UIKit.UIWindow;
 #elif WINDOWS
+using PlatformWindow = Microsoft.UI.Xaml.Window;
 #endif
 
 namespace Microsoft.Maui.Controls;

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EmbeddedMauiApps.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "EmbeddedMauiApps.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
