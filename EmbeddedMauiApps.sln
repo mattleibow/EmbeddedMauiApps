@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps", "Embedde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps.Embedding", "EmbeddedMauiApps.Embedding\EmbeddedMauiApps.Embedding.csproj", "{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps.Droid", "EmbeddedMauiApps.Droid\EmbeddedMauiApps.Droid.csproj", "{B7AE232F-5DBF-4C4C-BDD6-2D0E3331E422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7AE232F-5DBF-4C4C-BDD6-2D0E3331E422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7AE232F-5DBF-4C4C-BDD6-2D0E3331E422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7AE232F-5DBF-4C4C-BDD6-2D0E3331E422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7AE232F-5DBF-4C4C-BDD6-2D0E3331E422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

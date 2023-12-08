@@ -1,17 +1,26 @@
-﻿using Microsoft.Maui.Platform;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Platform;
 
 namespace EmbeddedMauiApps.MacCatalyst;
 
 public class MainViewController : UIViewController
 {
+    public static readonly Lazy<MauiApp> MauiApp = new(() =>
+    {
+        var mauiApp = MauiProgram.CreateMauiApp(builder =>
+        {
+            builder.UseMauiEmbedding(UIApplication.SharedApplication.Delegate);
+        });
+
+        return mauiApp;
+    });
+
+    private MyMauiContent? mauiView;
+
     public override void ViewDidLoad()
     {
         base.ViewDidLoad();
-        ConfigureViewController();
-    }
 
-    private void ConfigureViewController()
-    {
         Title = "Main View Controller";
 
         View!.BackgroundColor = UIColor.SystemBackground;
@@ -23,7 +32,7 @@ public class MainViewController : UIViewController
             Alignment = UIStackViewAlignment.Fill,
             Distribution = UIStackViewDistribution.Fill,
             Spacing = 8,
-            TranslatesAutoresizingMaskIntoConstraints = false
+            TranslatesAutoresizingMaskIntoConstraints = false,
         };
         View.AddSubview(stackView);
 
@@ -36,29 +45,39 @@ public class MainViewController : UIViewController
         });
 
         // Create UIKit button
-        var createTaskButton = new UIButton(UIButtonType.System);
-        createTaskButton.SetTitle("UIKit Button", UIControlState.Normal);
-        stackView.AddArrangedSubview(createTaskButton);
+        var firstButton = new UIButton(UIButtonType.System);
+        firstButton.SetTitle("UIKit Button Above MAUI", UIControlState.Normal);
+        stackView.AddArrangedSubview(firstButton);
 
         // Create .NET MAUI view
-        var mauiApp = AppDelegate.MauiApp.Value;
+        var mauiApp = MainViewController.MauiApp.Value;
         var mauiView = CreateMauiView();
         var nativeView = CreateNativeView(mauiApp, mauiView);
         stackView.AddArrangedSubview(nativeView);
+
+        // Create UIKit button
+        var secondButton = new UIButton(UIButtonType.System);
+        secondButton.SetTitle("UIKit Button Below MAUI", UIControlState.Normal);
+        stackView.AddArrangedSubview(secondButton);
+
+        // Create UIKit button
+        var thirdButton = new UIButton(UIButtonType.System);
+        thirdButton.SetTitle("UIKit Button Magic", UIControlState.Normal);
+        thirdButton.TouchUpInside += OnMagicClicked;
+        stackView.AddArrangedSubview(thirdButton);
 
         AddNavBarButtons();
     }
 
     private VisualElement CreateMauiView()
     {
-        var view = new MyMauiContent();
-        return view;
+        mauiView = new MyMauiContent();
+        return mauiView;
     }
 
     private UIView CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
     {
         var mauiWindow = new Window();
-        //var app = mauiApp.Services.GetRequiredService<IApplication>();
         mauiWindow.AddLogicalChild(mauiView);
 
         var window =
@@ -110,5 +129,16 @@ public class MainViewController : UIViewController
                 Console.WriteLine(new NSErrorException(error));
             });
         }
+    }
+
+    private async void OnMagicClicked(object? sender, EventArgs e)
+    {
+        if (mauiView?.DotNetBot is not Image bot)
+            return;
+
+        await bot.RotateTo(360, 1000);
+        bot.Rotation = 0;
+
+        bot.HeightRequest = 90;
     }
 }

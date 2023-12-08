@@ -24,7 +24,7 @@ public static class EmbeddedExtensions
 
         builder.Services.AddScoped<EmbeddedWindowProvider>();
 
-#if IOS || MACCATALYST
+#if ANDROID || IOS || MACCATALYST
         builder.Services.AddScoped<PlatformWindow>(svc =>
             svc.GetRequiredService<EmbeddedWindowProvider>().PlatformWindow ?? throw new InvalidOperationException("EmbeddedWindowProvider did not have a platform window."));
 #endif
@@ -45,7 +45,11 @@ public static class EmbeddedExtensions
     {
         var windowScope = mauiApp.Services.CreateScope();
 
+#if ANDROID
+        var windowContext = new MauiContext(windowScope.ServiceProvider, platformWindow);
+#else
         var windowContext = new MauiContext(windowScope.ServiceProvider);
+#endif
 
         var wndProvider = windowContext.Services.GetRequiredService<EmbeddedWindowProvider>();
         wndProvider.SetWindow(platformWindow, window);

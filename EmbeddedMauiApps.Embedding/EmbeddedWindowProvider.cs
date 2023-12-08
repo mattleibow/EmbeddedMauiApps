@@ -1,6 +1,5 @@
 ﻿#if ANDROID
 using PlatformWindow = Android.App.Activity;
-using PlatformApplication = Android.App.Application;
 #elif IOS || MACCATALYST
 using PlatformWindow = UIKit.UIWindow;
 #elif WINDOWS

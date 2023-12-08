@@ -1,6 +1,6 @@
 ﻿namespace EmbeddedMauiApps;
 
-public partial class MyMauiContent : ContentView
+public partial class MyMauiContent
 {
 	int count = 0;
 
@@ -9,7 +9,9 @@ public partial class MyMauiContent : ContentView
 		InitializeComponent();
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	public Image DotNetBot => image;
+
+	private async void OnCounterClicked(object sender, EventArgs e)
 	{
 		count++;
 
@@ -19,6 +21,9 @@ public partial class MyMauiContent : ContentView
 			CounterBtn.Text = $"Clicked {count} times";
 
 		SemanticScreenReader.Announce(CounterBtn.Text);
+
+		await image.ScaleTo(1.2, 60);
+		await image.ScaleTo(1, 60);
 	}
 }
 

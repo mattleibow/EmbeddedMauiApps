@@ -7,10 +7,15 @@
         Padding="30,0"
         Spacing="25">
         <Image
+            x:Name="image"
             Source="dotnet_bot.png"
             HeightRequest="185"
             Aspect="AspectFit"
-            SemanticProperties.Description="dot net bot in a race car number eight" />
+            SemanticProperties.Description="dot net bot in a race car number eight">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCounterClicked" />
+            </Image.GestureRecognizers>
+        </Image>
 
         <Label
             Text="Hello, World!"
