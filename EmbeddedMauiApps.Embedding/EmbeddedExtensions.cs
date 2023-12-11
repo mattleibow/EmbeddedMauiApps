@@ -16,16 +16,24 @@ namespace Microsoft.Maui.Controls;
 
 public static class EmbeddedExtensions
 {
-    public static MauiAppBuilder UseMauiEmbedding(this MauiAppBuilder builder, PlatformApplication platformApplication)
+    public static MauiAppBuilder UseMauiEmbedding(this MauiAppBuilder builder, PlatformApplication? platformApplication = null)
     {
+#if ANDROID
+        platformApplication ??= (Android.App.Application)Android.App.Application.Context;
+#elif IOS || MACCATALYST
+        platformApplication ??= UIKit.UIApplication.SharedApplication.Delegate;
+#elif WINDOWS
+        platformApplication ??= Microsoft.UI.Xaml.Application.Current;
+#endif
+
         builder.Services.AddSingleton(platformApplication);
 
         builder.Services.AddSingleton<EmbeddedPlatformApplication>();
 
         builder.Services.AddScoped<EmbeddedWindowProvider>();
 
-        builder.Services.AddScoped<PlatformWindow>(svc =>
-            svc.GetRequiredService<EmbeddedWindowProvider>().PlatformWindow ?? throw new InvalidOperationException("EmbeddedWindowProvider did not have a platform window."));
+        // returning null is acceptable here as the platform window is optional - but we do not know for sure until we resolve it
+        builder.Services.AddScoped<PlatformWindow>(svc => svc.GetRequiredService<EmbeddedWindowProvider>().PlatformWindow!);
 
         builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IMauiInitializeService, EmbeddedInitializeService>());
 

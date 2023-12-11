@@ -12,7 +12,7 @@ public class MainActivity : Activity
     {
         var mauiApp = MauiProgram.CreateMauiApp(builder =>
         {
-            builder.UseMauiEmbedding((Android.App.Application)Android.App.Application.Context);
+            builder.UseMauiEmbedding();
         });
 
         return mauiApp;
@@ -36,7 +36,7 @@ public class MainActivity : Activity
 
         // Create .NET MAUI view
         var mauiApp = MainActivity.MauiApp.Value;
-        var mauiView = CreateMauiView();
+        mauiView = new MyMauiContent();
         var nativeView = CreateNativeView(mauiApp, mauiView);
         rootLayout.AddView(nativeView, new LinearLayout.LayoutParams(MatchParent, WrapContent));
 
@@ -50,12 +50,6 @@ public class MainActivity : Activity
         lastButton.Text = "Android Button Magic";
         lastButton.Click += OnMagicClicked;
         rootLayout.AddView(lastButton, new LinearLayout.LayoutParams(MatchParent, WrapContent));
-    }
-
-    private VisualElement CreateMauiView()
-    {
-        mauiView = new MyMauiContent();
-        return mauiView;
     }
 
     private Android.Views.View CreateNativeView(MauiApp mauiApp, VisualElement mauiView)

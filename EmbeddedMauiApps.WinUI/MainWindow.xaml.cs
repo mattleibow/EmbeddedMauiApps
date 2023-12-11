@@ -28,7 +28,7 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
     {
         var mauiApp = MauiProgram.CreateMauiApp(builder =>
         {
-            builder.UseMauiEmbedding(Microsoft.UI.Xaml.Application.Current);
+            builder.UseMauiEmbedding();
         });
 
         return mauiApp;
@@ -57,7 +57,7 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
 
         // Create .NET MAUI view
         var mauiApp = MainWindow.MauiApp.Value;
-        var mauiView = CreateMauiView();
+        mauiView = new MyMauiContent();
         var nativeView = CreateNativeView(mauiApp, mauiView);
         stackPanel.Children.Add(nativeView);
 
@@ -73,18 +73,14 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
         stackPanel.Children.Add(thirdButton);
     }
 
-    private VisualElement CreateMauiView()
-    {
-        mauiView = new MyMauiContent();
-        return mauiView;
-    }
-
     private FrameworkElement CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
     {
-        var mauiWindow = new Microsoft.Maui.Controls.Window();
-        mauiWindow.AddLogicalChild(mauiView);
+        //var mauiWindow = new Microsoft.Maui.Controls.Window();
+        //mauiWindow.AddLogicalChild(mauiView);
 
-        var mauiContext = mauiApp.CreateWindowScope(this, mauiWindow);
+        //var mauiContext = mauiApp.CreateWindowScope(this, mauiWindow);
+
+        var mauiContext = new MauiContext(mauiApp.Services);
 
         var platformView = mauiView.ToPlatform(mauiContext);
 
