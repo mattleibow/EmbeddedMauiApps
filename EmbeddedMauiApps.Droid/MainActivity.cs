@@ -18,7 +18,7 @@ public class MainActivity : Activity
         return mauiApp;
     });
 
-    public static bool UseWindowContext = false;
+    public static bool UseWindowContext = true;
 
     private MyMauiContent? mauiView;
 
@@ -45,7 +45,7 @@ public class MainActivity : Activity
         // 3. Create MAUI context
         var mauiContext = UseWindowContext
             ? mauiApp.CreateEmbeddedWindowContext(this) // 3a. Create window context
-            : new MauiContext(mauiApp.Services);        // 3b. Or, create app context
+            : new MauiContext(mauiApp.Services, this);  // 3b. Or, create app context
         // 4. Create platform view
         var nativeView = mauiView.ToPlatformEmbedded(mauiContext);
         // 5. Continue

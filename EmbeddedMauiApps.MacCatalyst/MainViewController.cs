@@ -22,7 +22,7 @@ public class MainViewController : UIViewController
         return mauiApp;
     });
 
-    public static bool UseWindowContext = false;
+    public static bool UseWindowContext = true;
 
     private MyMauiContent? mauiView;
 
