@@ -1,10 +1,17 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Platform;
 
 namespace EmbeddedMauiApps.MacCatalyst;
 
 public class MainViewController : UIViewController
 {
+    UIWindow GetWindow() =>
+        View?.Window ??
+        ParentViewController?.View?.Window ??
+        MainViewController.MauiApp.Value.Services.GetRequiredService<IUIApplicationDelegate>().GetWindow() ??
+        UIApplication.SharedApplication.Delegate.GetWindow();
+
     public static readonly Lazy<MauiApp> MauiApp = new(() =>
     {
         var mauiApp = MauiProgram.CreateMauiApp(builder =>
@@ -14,6 +21,8 @@ public class MainViewController : UIViewController
 
         return mauiApp;
     });
+
+    public static bool UseWindowContext = false;
 
     private MyMauiContent? mauiView;
 
@@ -50,9 +59,18 @@ public class MainViewController : UIViewController
         stackView.AddArrangedSubview(firstButton);
 
         // Create .NET MAUI view
+
+        // 1. Ensure app is built before creating MAUI views
         var mauiApp = MainViewController.MauiApp.Value;
+        // 2. Create MAUI views
         mauiView = new MyMauiContent();
-        var nativeView = CreateNativeView(mauiApp, mauiView);
+        // 3. Create MAUI context
+        var mauiContext = UseWindowContext
+            ? mauiApp.CreateEmbeddedWindowContext(GetWindow()) // 3a. Create window context
+            : new MauiContext(mauiApp.Services);               // 3b. Or, create app context
+        // 4. Create platform view
+        var nativeView = mauiView.ToPlatformEmbedded(mauiContext);
+        // 5. Continue
         stackView.AddArrangedSubview(nativeView);
 
         // Create UIKit button
@@ -69,23 +87,6 @@ public class MainViewController : UIViewController
         AddNavBarButtons();
     }
 
-    private UIView CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
-    {
-        var mauiWindow = new Window();
-        mauiWindow.AddLogicalChild(mauiView);
-
-        var window =
-            View?.Window ??
-            ParentViewController?.View?.Window ??
-            mauiApp.Services.GetRequiredService<IUIApplicationDelegate>().GetWindow();
-
-        var mauiContext = mauiApp.CreateWindowScope(window, mauiWindow);
-
-        var platformView = mauiView.ToPlatform(mauiContext);
-
-        return platformView;
-    }
-
     private void AddNavBarButtons()
     {
         var addNewWindowButton = new UIBarButtonItem(
@@ -97,7 +98,7 @@ public class MainViewController : UIViewController
             UIBarButtonSystemItem.Add,
             (sender, e) => RequestSession("NewTaskWindow"));
 
-        NavigationItem.RightBarButtonItems = new [] { addNewTaskButton, addNewWindowButton };
+        NavigationItem.RightBarButtonItems = [ addNewTaskButton, addNewWindowButton ];
     }
 
     private void RequestSession(string? activityType = null)

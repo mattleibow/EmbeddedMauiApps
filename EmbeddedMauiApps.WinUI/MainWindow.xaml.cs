@@ -34,6 +34,8 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
         return mauiApp;
     });
 
+    public static bool UseWindowContext = true;
+
     private MyMauiContent? mauiView;
 
     public MainWindow()
@@ -45,10 +47,11 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
         {
             Orientation = Orientation.Vertical,
             HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Stretch,
+            VerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment.Stretch,
             Spacing = 8,
             Padding = new Microsoft.UI.Xaml.Thickness(20)
         };
-        Content = stackPanel;
+        RootLayout.Children.Add(stackPanel);
 
         // Create WinUI button
         var firstButton = new Microsoft.UI.Xaml.Controls.Button();
@@ -56,9 +59,18 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
         stackPanel.Children.Add(firstButton);
 
         // Create .NET MAUI view
+
+        // 1. Ensure app is built before creating MAUI views
         var mauiApp = MainWindow.MauiApp.Value;
+        // 2. Create MAUI views
         mauiView = new MyMauiContent();
-        var nativeView = CreateNativeView(mauiApp, mauiView);
+        // 3. Create MAUI context
+        var mauiContext = UseWindowContext
+            ? mauiApp.CreateEmbeddedWindowContext(this) // 3a. Create window context
+            : new MauiContext(mauiApp.Services);        // 3b. Or, create app context
+        // 4. Create platform view
+        var nativeView = mauiView.ToPlatformEmbedded(mauiContext);
+        // 5. Continue
         stackPanel.Children.Add(nativeView);
 
         // Create WinUI button
@@ -73,20 +85,6 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
         stackPanel.Children.Add(thirdButton);
     }
 
-    private FrameworkElement CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
-    {
-        //var mauiWindow = new Microsoft.Maui.Controls.Window();
-        //mauiWindow.AddLogicalChild(mauiView);
-
-        //var mauiContext = mauiApp.CreateWindowScope(this, mauiWindow);
-
-        var mauiContext = new MauiContext(mauiApp.Services);
-
-        var platformView = mauiView.ToPlatform(mauiContext);
-
-        return platformView;
-    }
-
     private async void OnMagicClicked(object? sender, RoutedEventArgs e)
     {
         if (mauiView?.DotNetBot is not Microsoft.Maui.Controls.Image bot)
@@ -96,5 +94,11 @@ public sealed partial class MainWindow : Microsoft.UI.Xaml.Window
         bot.Rotation = 0;
 
         bot.HeightRequest = 90;
+    }
+
+    private void OnNewWindowClicked(object sender, RoutedEventArgs e)
+    {
+        var window = new MainWindow();
+        window.Activate();
     }
 }

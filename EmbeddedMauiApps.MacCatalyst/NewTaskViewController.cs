@@ -22,13 +22,13 @@ public class NewTaskViewController : UIViewController
         };
         View.AddSubview(stackView);
 
-        NSLayoutConstraint.ActivateConstraints(new[]
-        {
+        NSLayoutConstraint.ActivateConstraints(
+        [
             stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 20),
             stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor, 20),
             stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -20),
             stackView.BottomAnchor.ConstraintLessThanOrEqualTo(View.SafeAreaLayoutGuide.BottomAnchor, -20)
-        });
+        ]);
 
         // Title Text Field
         taskTitleTextField = CreateTextField("Title");

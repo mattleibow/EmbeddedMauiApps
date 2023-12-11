@@ -18,6 +18,8 @@ public class MainActivity : Activity
         return mauiApp;
     });
 
+    public static bool UseWindowContext = false;
+
     private MyMauiContent? mauiView;
 
     protected override void OnCreate(Bundle? savedInstanceState)
@@ -35,9 +37,18 @@ public class MainActivity : Activity
         rootLayout.AddView(firstButton, new LinearLayout.LayoutParams(MatchParent, WrapContent));
 
         // Create .NET MAUI view
+
+        // 1. Ensure app is built before creating MAUI views
         var mauiApp = MainActivity.MauiApp.Value;
+        // 2. Create MAUI views
         mauiView = new MyMauiContent();
-        var nativeView = CreateNativeView(mauiApp, mauiView);
+        // 3. Create MAUI context
+        var mauiContext = UseWindowContext
+            ? mauiApp.CreateEmbeddedWindowContext(this) // 3a. Create window context
+            : new MauiContext(mauiApp.Services);        // 3b. Or, create app context
+        // 4. Create platform view
+        var nativeView = mauiView.ToPlatformEmbedded(mauiContext);
+        // 5. Continue
         rootLayout.AddView(nativeView, new LinearLayout.LayoutParams(MatchParent, WrapContent));
 
         // Create Android button
@@ -50,18 +61,6 @@ public class MainActivity : Activity
         lastButton.Text = "Android Button Magic";
         lastButton.Click += OnMagicClicked;
         rootLayout.AddView(lastButton, new LinearLayout.LayoutParams(MatchParent, WrapContent));
-    }
-
-    private Android.Views.View CreateNativeView(MauiApp mauiApp, VisualElement mauiView)
-    {
-        var mauiWindow = new Window();
-        mauiWindow.AddLogicalChild(mauiView);
-
-        var mauiContext = mauiApp.CreateWindowScope(this, mauiWindow);
-
-        var platformView = mauiView.ToPlatform(mauiContext);
-
-        return platformView;
     }
 
     private async void OnMagicClicked(object? sender, EventArgs e)

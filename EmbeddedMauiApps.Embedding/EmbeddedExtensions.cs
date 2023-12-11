@@ -2,12 +2,15 @@
 using Microsoft.Maui.Platform;
 
 #if ANDROID
+using PlatformView = Android.Views.View;
 using PlatformWindow = Android.App.Activity;
 using PlatformApplication = Android.App.Application;
 #elif IOS || MACCATALYST
+using PlatformView = UIKit.UIView;
 using PlatformWindow = UIKit.UIWindow;
 using PlatformApplication = UIKit.IUIApplicationDelegate;
 #elif WINDOWS
+using PlatformView = Microsoft.UI.Xaml.FrameworkElement;
 using PlatformWindow = Microsoft.UI.Xaml.Window;
 using PlatformApplication = Microsoft.UI.Xaml.Application;
 #endif
@@ -45,7 +48,7 @@ public static class EmbeddedExtensions
         return builder;
     }
 
-    public static IMauiContext CreateWindowScope(this MauiApp mauiApp, PlatformWindow platformWindow, Window window)
+    public static IMauiContext CreateEmbeddedWindowContext(this MauiApp mauiApp, PlatformWindow platformWindow, Window? window = null)
     {
         var windowScope = mauiApp.Services.CreateScope();
 
@@ -55,12 +58,23 @@ public static class EmbeddedExtensions
         var windowContext = new MauiContext(windowScope.ServiceProvider);
 #endif
 
+        window ??= new Window();
+
         var wndProvider = windowContext.Services.GetRequiredService<EmbeddedWindowProvider>();
         wndProvider.SetWindow(platformWindow, window);
 
         window.ToHandler(windowContext);
 
         return windowContext;
+    }
+
+    public static PlatformView ToPlatformEmbedded(this IElement element, IMauiContext context)
+    {
+        var wndProvider = context.Services.GetService<EmbeddedWindowProvider>();
+        if (wndProvider is not null && wndProvider.Window is Window wnd && element is VisualElement visual)
+            wnd.AddLogicalChild(visual);
+
+        return element.ToPlatform(context);
     }
 
     private class EmbeddedInitializeService : IMauiInitializeService
