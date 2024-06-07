@@ -41,8 +41,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\EmbeddedMauiApps.Embedding\EmbeddedMauiApps.Embedding.csproj" />
-		<ProjectReference Include="..\EmbeddedMauiApps\EmbeddedMauiApps.csproj" />
+		<ProjectReference Include="..\EmbeddedMauiApps.Embedding\EmbeddedMauiApps.Embedding.csproj">
+		  <ReferenceSourceTarget></ReferenceSourceTarget>
+		</ProjectReference>
+		<ProjectReference Include="..\EmbeddedMauiApps\EmbeddedMauiApps.csproj">
+		  <ReferenceSourceTarget></ReferenceSourceTarget>
+		</ProjectReference>
 	</ItemGroup>
 
 	<!-- 
