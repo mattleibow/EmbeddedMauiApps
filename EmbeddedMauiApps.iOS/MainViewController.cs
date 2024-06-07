@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Platform;
 
-namespace EmbeddedMauiApps.MacCatalyst;
+namespace EmbeddedMauiApps.iOS;
 
 public class MainViewController : UIViewController
 {
@@ -85,7 +85,8 @@ public class MainViewController : UIViewController
         thirdButton.TouchUpInside += OnMagicClicked;
         stackView.AddArrangedSubview(thirdButton);
 
-        AddNavBarButtons();
+        if (Device.Idiom == TargetIdiom.Tablet)
+            AddNavBarButtons();
     }
 
     private void AddNavBarButtons()
@@ -99,7 +100,7 @@ public class MainViewController : UIViewController
             UIBarButtonSystemItem.Add,
             (sender, e) => RequestSession("NewTaskWindow"));
 
-        NavigationItem.RightBarButtonItems = [ addNewTaskButton, addNewWindowButton ];
+        NavigationItem.RightBarButtonItems = [addNewTaskButton, addNewWindowButton];
     }
 
     private void RequestSession(string? activityType = null)
@@ -108,7 +109,7 @@ public class MainViewController : UIViewController
             ? null
             : new NSUserActivity(activityType);
 
-        if (OperatingSystem.IsMacCatalystVersionAtLeast(17))
+        if (OperatingSystem.IsIOSVersionAtLeast(17))
         {
             var request = UISceneSessionActivationRequest.Create();
             request.UserActivity = activity;
