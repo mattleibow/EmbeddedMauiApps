@@ -6,9 +6,17 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml;assembly=EmbeddedMauiApps" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml;assembly=EmbeddedMauiApps" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Example styles to demonstrate how to use main app vs test app styles -->
+            <Style x:Key="MainAppOnlyStyle" TargetType="VisualElement" ApplyToDerivedTypes="True">
+            </Style>
+            <Style x:Key="TestAppOnlyStyle" TargetType="VisualElement" ApplyToDerivedTypes="True">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

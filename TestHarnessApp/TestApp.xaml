@@ -1,0 +1,20 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<embedded:App xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:embedded="clr-namespace:EmbeddedMauiApps;assembly=EmbeddedMauiApps"
+             xmlns:local="clr-namespace:TestHarnessApp"
+             x:Class="TestHarnessApp.TestApp">
+    <embedded:App.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="MainAppOnlyStyle" TargetType="VisualElement" ApplyToDerivedTypes="True">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+
+            <Style x:Key="TestAppOnlyStyle" TargetType="VisualElement" ApplyToDerivedTypes="True">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+
+        </ResourceDictionary>
+    </embedded:App.Resources>
+</embedded:App>

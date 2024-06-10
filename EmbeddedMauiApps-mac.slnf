@@ -1,0 +1,13 @@
+{
+  "solution": {
+    "path": "EmbeddedMauiApps.sln",
+    "projects": [
+      "Microsoft.Maui.Controls.Embedding\\Microsoft.Maui.Controls.Embedding.csproj",
+      "EmbeddedMauiApps\\EmbeddedMauiApps.csproj",
+      "EmbeddedMauiApps.MacCatalyst\\EmbeddedMauiApps.MacCatalyst.csproj",
+      "EmbeddedMauiApps.Droid\\EmbeddedMauiApps.Droid.csproj",
+      "EmbeddedMauiApps.iOS\\EmbeddedMauiApps.iOS.csproj",
+      "TestHarnessApp\\TestHarnessApp.csproj"
+    ]
+  }
+}

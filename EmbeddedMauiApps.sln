@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedMauiApps.MacCatalys
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedMauiApps", "EmbeddedMauiApps\EmbeddedMauiApps.csproj", "{1EFEE596-34AE-472B-B096-0578C6F3587B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedMauiApps.Embedding", "EmbeddedMauiApps.Embedding\EmbeddedMauiApps.Embedding.csproj", "{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Maui.Controls.Embedding", "Microsoft.Maui.Controls.Embedding\Microsoft.Maui.Controls.Embedding.csproj", "{24DD1DFD-671B-4D1E-A8B4-0C946C65285E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddedMauiApps.Droid", "EmbeddedMauiApps.Droid\EmbeddedMauiApps.Droid.csproj", "{B7AE232F-5DBF-4C4C-BDD6-2D0E3331E422}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps.WinUI", "EmbeddedMauiApps.WinUI\EmbeddedMauiApps.WinUI.csproj", "{E3A19162-A100-4F9A-B9D3-402690736A9B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedMauiApps.iOS", "EmbeddedMauiApps.iOS\EmbeddedMauiApps.iOS.csproj", "{6FECC2EE-2AF8-4D9B-A343-50F88956BB10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarnessApp", "TestHarnessApp\TestHarnessApp.csproj", "{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,22 @@ Global
 		{6FECC2EE-2AF8-4D9B-A343-50F88956BB10}.Release|x64.Build.0 = Release|Any CPU
 		{6FECC2EE-2AF8-4D9B-A343-50F88956BB10}.Release|x86.ActiveCfg = Release|Any CPU
 		{6FECC2EE-2AF8-4D9B-A343-50F88956BB10}.Release|x86.Build.0 = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|x64.Build.0 = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Debug|x86.Build.0 = Debug|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|ARM64.Build.0 = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|x64.ActiveCfg = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|x64.Build.0 = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|x86.ActiveCfg = Release|Any CPU
+		{A6151DE1-B97C-42CD-B1DB-4DD75D96DF38}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
